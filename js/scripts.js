@@ -19,4 +19,49 @@ function initMap() {
 		center: {lat: 18.5204, lng: 73.8567},
 		zoom: 8
 	});
+
+	var addressURL = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=18.5204,73.8567&radius=500&type=restaurant&key='+ mapsKey.key;
+
+	get(addressURL).then(function(response) {
+		var finalResults = JSON.parse(response);
+		console.log('finalResults=>', finalResults);
+	}, function(error) {
+		console.log("Promise failed=>", error);
+	});
 }
+
+/**
+ * [get method for XHR]
+ * @param  {[string]} url [accepts the url to make call]
+ * @return {[Promise]}     [returns Promise of call]
+ */
+ function get(url) {
+  // Return a new promise.
+  return new Promise(function(resolve, reject) {
+    // Do the usual XHR stuff
+    var req = new XMLHttpRequest();
+    req.open('GET', url);
+
+    req.onload = function() {
+      // This is called even on 404 etc
+      // so check the status
+      if (req.status == 200) {
+        // Resolve the promise with the response text
+        resolve(req.response);
+      }
+      else {
+        // Otherwise reject with the status text
+        // which will hopefully be a meaningful error
+        reject(Error(req.statusText));
+      }
+    };
+
+    // Handle network errors
+    req.onerror = function() {
+    	reject(Error("Network Error"));
+    };
+
+    // Make the request
+    req.send();
+  });
+} //get ends here
