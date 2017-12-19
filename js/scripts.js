@@ -9,10 +9,24 @@ mapJSRef.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key='+ map
 mapJSRef.onload = function () {
 	console.log('mapJSRef loaded');
   getGeoLocation();
+  loadPlaceTypes();
 };
 document.getElementsByTagName("head")[0].appendChild(mapJSRef);
 
 var mapInstance, infowindow, currentLocationObj;
+
+function loadPlaceTypes() {
+  if(placeTypes.length > 0){
+    var cmbPlaceType = document.getElementById('cmbPlaceType');
+    console.log('cmbPlaceType=>', cmbPlaceType);
+    for (var i = 0; i< placeTypes.length; i++){
+      var opt = document.createElement('option');
+      opt.value = placeTypes[i];
+      opt.innerHTML = placeTypes[i];
+      cmbPlaceType.appendChild(opt);
+    }
+  }
+}
 
 /**
  * [get method for XHR]
@@ -49,7 +63,6 @@ var mapInstance, infowindow, currentLocationObj;
     req.send();
   });
 } //get ends here
-
 
 function getGeoLocation() {
   if (navigator.geolocation) {
