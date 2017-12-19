@@ -1,5 +1,6 @@
 console.log('scripts loaded');
 console.log('mapsKey=>', mapsKey);
+console.log('placeTypes=>', placeTypes);
 
 //loading and adding the Google maps js to DOM
 var mapJSRef = document.createElement('script');
@@ -91,15 +92,16 @@ function setLocationByGeo(position) {
   searchPlaces();
 }
 
-function searchPlaces() {
+function searchPlaces(strPlaceType) {
+  console.log('in searchPlaces=>', strPlaceType);
 
- infowindow = new google.maps.InfoWindow();
- var service = new google.maps.places.PlacesService(mapInstance);
- service.nearbySearch({
-  location: currentLocationObj,
-  radius: 2000,
-  type: ['restaurant']
-}, cbResults);
+  infowindow = new google.maps.InfoWindow();
+  var service = new google.maps.places.PlacesService(mapInstance);
+  service.nearbySearch({
+    location: currentLocationObj,
+    radius: 2000,
+    type: ['restaurant']
+  }, cbResults);
 
 }
 
