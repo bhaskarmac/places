@@ -11,8 +11,7 @@ mapJSRef.onload = function () {
 };
 document.getElementsByTagName("head")[0].appendChild(mapJSRef);
 
-var mapInstance;
-
+var mapInstance, infowindow, currentLocationObj;
 
 /**
  * [get method for XHR]
@@ -79,20 +78,56 @@ function showError(error) {
 function setLocationByGeo(position) {
   console.log('currentPosition=>', position);
   
-  var currentPosition = {
-    latitude: position.coords.latitude,
-    longitude: position.coords.longitude
+  currentLocationObj = {
+    lat: position.coords.latitude,
+    lng: position.coords.longitude
   };
 
   mapInstance = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: currentPosition.latitude, lng: currentPosition.longitude},
+    center: currentLocationObj,
     zoom: 15
   });
 
-  otherThings();
+  searchPlaces();
 }
 
-function otherThings() {
- var addressURL = 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=18.5204,73.8567&radius=500&type=restaurant&key='+ mapsKey.key;
+function searchPlaces() {
 
+ infowindow = new google.maps.InfoWindow();
+ var service = new google.maps.places.PlacesService(mapInstance);
+ service.nearbySearch({
+  location: currentLocationObj,
+  radius: 2000,
+  type: ['restaurant']
+}, cbResults);
+
+}
+
+function cbResults(results, status) {
+  console.log('in cbResults=>');
+  if(results.length > 0){
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      for (var i = 0; i < results.length; i++) {
+        console.log('results[i].name=>', results[i].name);
+        console.log('results[i]=>', results[i]);
+        addMarker(results[i]);
+      }
+    }
+  }else{
+    console.log('No results found=>', results);
+  }
+}
+
+function addMarker(place) {
+  console.log('in createMarker=>');
+  var placeLoc = place.geometry.location;
+  var marker = new google.maps.Marker({
+    map: mapInstance,
+    position: place.geometry.location
+  });
+
+  google.maps.event.addListener(marker, 'click', function() {
+    infowindow.setContent(place.name);
+    infowindow.open(map, this);
+  });
 }
