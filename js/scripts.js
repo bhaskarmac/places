@@ -22,7 +22,7 @@ function loadPlaceTypes() {
     for (var i = 0; i< placeTypes.length; i++){
       var opt = document.createElement('option');
       opt.value = placeTypes[i];
-      opt.innerHTML = placeTypes[i];
+      opt.innerHTML = (placeTypes[i].charAt(0).toUpperCase() + placeTypes[i].slice(1)).replace("_", " ");
       cmbPlaceType.appendChild(opt);
     }
   }

@@ -6,3 +6,8 @@ body{
 	height: 650px;
 	width: 650px;
 }
+#cmbPlaceType{
+	padding: 5px;
+	font-family: Roboto;
+	margin-bottom: 20px;
+}
