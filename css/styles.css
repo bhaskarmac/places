@@ -1,13 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 body{
 	margin: 100px;
+	font-family: Roboto;
 }
 #map{
 	height: 650px;
 	width: 650px;
 }
 #cmbPlaceType{
-	padding: 5px;
 	font-family: Roboto;
+	font-size: 15px;
+	padding: 5px;
 	margin-bottom: 20px;
 }

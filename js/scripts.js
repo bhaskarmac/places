@@ -13,12 +13,11 @@ mapJSRef.onload = function () {
 };
 document.getElementsByTagName("head")[0].appendChild(mapJSRef);
 
-var mapInstance, infowindow, currentLocationObj;
+var mapInstance, infowindow, currentLocationObj, markers = [];
 
 function loadPlaceTypes() {
   if(placeTypes.length > 0){
     var cmbPlaceType = document.getElementById('cmbPlaceType');
-    console.log('cmbPlaceType=>', cmbPlaceType);
     for (var i = 0; i< placeTypes.length; i++){
       var opt = document.createElement('option');
       opt.value = placeTypes[i];
@@ -26,6 +25,12 @@ function loadPlaceTypes() {
       cmbPlaceType.appendChild(opt);
     }
   }
+}
+
+function getSelectedPlace() {
+  var selectedValue = document.getElementById("cmbPlaceType").value;
+  console.log('selectedValue=>', selectedValue);
+  searchPlaces(selectedValue);
 }
 
 /**
@@ -102,7 +107,7 @@ function setLocationByGeo(position) {
     zoom: 15
   });
 
-  searchPlaces();
+  getSelectedPlace();
 }
 
 function searchPlaces(strPlaceType) {
@@ -113,7 +118,7 @@ function searchPlaces(strPlaceType) {
   service.nearbySearch({
     location: currentLocationObj,
     radius: 2000,
-    type: ['restaurant']
+    type: [strPlaceType]
   }, cbResults);
 
 }
@@ -121,10 +126,11 @@ function searchPlaces(strPlaceType) {
 function cbResults(results, status) {
   console.log('in cbResults=>');
   if(results.length > 0){
+    clearMarkers();
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       for (var i = 0; i < results.length; i++) {
         console.log('results[i].name=>', results[i].name);
-        console.log('results[i]=>', results[i]);
+        // console.log('results[i]=>', results[i]);
         addMarker(results[i]);
       }
     }
@@ -134,15 +140,24 @@ function cbResults(results, status) {
 }
 
 function addMarker(place) {
-  console.log('in createMarker=>');
   var placeLoc = place.geometry.location;
   var marker = new google.maps.Marker({
+    animation: google.maps.Animation.DROP,
     map: mapInstance,
     position: place.geometry.location
   });
+
+  markers.push(marker);
 
   google.maps.event.addListener(marker, 'click', function() {
     infowindow.setContent(place.name);
     infowindow.open(map, this);
   });
+}
+
+function clearMarkers() {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(null);
+  }
+  markers = [];
 }
