@@ -2,10 +2,12 @@
 body{
 	margin: 100px;
 	font-family: Roboto;
+	text-align: center;
 }
 #map{
 	height: 650px;
 	width: 650px;
+	margin: 0 auto;
 }
 #cmbPlaceType{
 	font-family: Roboto;
