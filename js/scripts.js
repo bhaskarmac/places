@@ -130,7 +130,6 @@ function cbResults(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       for (var i = 0; i < results.length; i++) {
         console.log('results[i].name=>', results[i].name);
-        // console.log('results[i]=>', results[i]);
         addMarker(results[i]);
       }
     }
