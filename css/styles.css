@@ -9,9 +9,14 @@ body{
 	width: 650px;
 	margin: 0 auto;
 }
-#cmbPlaceType{
+.commonControlStyle{
 	font-family: Roboto;
 	font-size: 15px;
 	padding: 5px;
+}
+#cmbPlaceType{
 	margin-bottom: 20px;
+}
+#searchRadius{
+	width: 90px;
 }

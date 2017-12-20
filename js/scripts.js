@@ -33,42 +33,6 @@ function getSelectedPlace() {
   searchPlaces(selectedValue);
 }
 
-/**
- * [get method for XHR]
- * @param  {[string]} url [accepts the url to make call]
- * @return {[Promise]}     [returns Promise of call]
- */
- function get(url) {
-  // Return a new promise.
-  return new Promise(function(resolve, reject) {
-    // Do the usual XHR stuff
-    var req = new XMLHttpRequest();
-    req.open('GET', url);
-
-    req.onload = function() {
-      // This is called even on 404 etc
-      // so check the status
-      if (req.status == 200) {
-        // Resolve the promise with the response text
-        resolve(req.response);
-      }
-      else {
-        // Otherwise reject with the status text
-        // which will hopefully be a meaningful error
-        reject(Error(req.statusText));
-      }
-    };
-
-    // Handle network errors
-    req.onerror = function() {
-    	reject(Error("Network Error"));
-    };
-
-    // Make the request
-    req.send();
-  });
-} //get ends here
-
 function getGeoLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(setLocationByGeo, showError);
@@ -112,15 +76,19 @@ function setLocationByGeo(position) {
 
 function searchPlaces(strPlaceType) {
   console.log('in searchPlaces=>', strPlaceType);
-
+  var txtSearchRadius = document.getElementById('searchRadius').value;
+  if(!txtSearchRadius){
+    txtSearchRadius = 2;
+    document.getElementById('searchRadius').value = 2;
+  }
+  var radiusInMeter = txtSearchRadius * 1000;
   infowindow = new google.maps.InfoWindow();
   var service = new google.maps.places.PlacesService(mapInstance);
   service.nearbySearch({
     location: currentLocationObj,
-    radius: 2000,
+    radius: radiusInMeter,
     type: [strPlaceType]
   }, cbResults);
-
 }
 
 function cbResults(results, status) {

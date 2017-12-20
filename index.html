@@ -11,7 +11,7 @@
 </head>
 <body>
 	<p>Select the place type from drop-down to display it on map</p>
-	<select name="cmbPlaceType" id="cmbPlaceType" onchange="getSelectedPlace()"></select> <span id="placeCount"></span>
+	<input id="searchRadius" class="commonControlStyle" type="text" placeholder="Search radius"> km <select name="cmbPlaceType" class="commonControlStyle" id="cmbPlaceType" onchange="getSelectedPlace()"></select> <span id="placeCount"></span>
 	<div id="map"></div>
 </body>
 </html>
