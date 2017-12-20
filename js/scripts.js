@@ -126,6 +126,7 @@ function searchPlaces(strPlaceType) {
 function cbResults(results, status) {
   console.log('in cbResults=>');
   if(results.length > 0){
+    document.getElementById('placeCount').innerHTML = '(' + results.length + ')';
     clearMarkers();
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       for (var i = 0; i < results.length; i++) {
