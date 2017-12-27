@@ -14,6 +14,7 @@ mapJSRef.onload = function () {
 document.getElementsByTagName("head")[0].appendChild(mapJSRef);
 
 var mapInstance, infowindow, currentLocationObj, markers = [];
+var radiusSlider, txtsearchRadius;
 
 function loadPlaceTypes() {
   if(placeTypes.length > 0){
@@ -81,19 +82,44 @@ function setLocationByGeo(position) {
 
 function searchPlaces(strPlaceType) {
   console.log('in searchPlaces=>', strPlaceType);
-  var txtSearchRadius = document.getElementById('searchRadius').value;
-  if(!txtSearchRadius){
-    txtSearchRadius = 2;
+  var searchRadiusElValue = document.getElementById('searchRadius').value;
+  if(!searchRadiusElValue){
+    searchRadiusElValue = 2;
     document.getElementById('searchRadius').value = 2;
+
+    //changing the search radius
+    var radiusSlider = document.querySelector('#radiusSlider'),
+    txtsearchRadius = document.querySelector('#searchRadius');
+    radiusSlider.value = 2;
+    txtsearchRadius.innerHTML = radiusSlider.value;
   }
-  var radiusInMeter = txtSearchRadius * 1000;
+
   infowindow = new google.maps.InfoWindow();
   var service = new google.maps.places.PlacesService(mapInstance);
+
+  radiusSlider.addEventListener('change', function () {
+    console.log('radiusSlider.value=>', radiusSlider.value);
+    txtsearchRadius.value = radiusSlider.value;
+    searchRadiusElValue = radiusSlider.value;
+
+    var radiusInMeter = searchRadiusElValue * 1000;
+
+    service.nearbySearch({
+      location: currentLocationObj,
+      radius: radiusInMeter,
+      type: [strPlaceType]
+    }, cbResults);
+
+  }, false);
+
+  var radiusInMeter = searchRadiusElValue * 1000;
+
   service.nearbySearch({
     location: currentLocationObj,
     radius: radiusInMeter,
     type: [strPlaceType]
   }, cbResults);
+
 }
 
 function cbResults(results, status) {
