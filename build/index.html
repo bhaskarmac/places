@@ -3,13 +3,17 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Places for you</title>
+	<link rel="icon" href="img/favicon.png" type="image/png" sizes="64x64">
 	<link rel="stylesheet" href="css/styles.css">
 	<script src="js/key.json"></script>
 	<script src="js/placeTypes.json"></script>
 	<script src="js/scripts.js"></script>
 </head>
 <body>
-	Select place type - <select name="cmbPlaceType" id="cmbPlaceType" onchange="getSelectedPlace()"></select>
+	<p id="errorDiv"></p>
+	<p>Select the place type from drop-down to display it on map</p>
+	<input id="radiusSlider" type="range" min="1" max="10" step="0.5" value="1" />
+	<input id="searchRadius" class="commonControlStyle" type="text" placeholder="Search radius"> km <select name="cmbPlaceType" class="commonControlStyle" id="cmbPlaceType" onchange="getSelectedPlace()"></select> <span id="placeCount"></span>
 	<div id="map"></div>
 </body>
 </html>
