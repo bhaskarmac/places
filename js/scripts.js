@@ -83,13 +83,13 @@ function setLocationByGeo(position) {
 function searchPlaces(strPlaceType) {
   console.log('in searchPlaces=>', strPlaceType);
   var searchRadiusElValue = document.getElementById('searchRadius').value;
+  var radiusSlider = document.querySelector('#radiusSlider'),
+  txtsearchRadius = document.querySelector('#searchRadius');
+  
   if(!searchRadiusElValue){
     searchRadiusElValue = 2;
     document.getElementById('searchRadius').value = 2;
 
-    //changing the search radius
-    var radiusSlider = document.querySelector('#radiusSlider'),
-    txtsearchRadius = document.querySelector('#searchRadius');
     radiusSlider.value = 2;
     txtsearchRadius.innerHTML = radiusSlider.value;
   }
