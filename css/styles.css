@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 body{
-	margin: 100px;
+	margin: 50px 100px;
 	font-family: Roboto;
 	text-align: center;
 }
@@ -9,9 +9,17 @@ body{
 	width: 650px;
 	margin: 0 auto;
 }
-#cmbPlaceType{
+.commonControlStyle{
 	font-family: Roboto;
 	font-size: 15px;
 	padding: 5px;
+}
+#cmbPlaceType{
 	margin-bottom: 20px;
+}
+#searchRadius{
+	width: 90px;
+}
+#errorDiv{
+	color: red;
 }
