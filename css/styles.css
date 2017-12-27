@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 body{
-	margin: 100px;
+	margin: 50px 100px;
 	font-family: Roboto;
 	text-align: center;
 }
@@ -19,4 +19,7 @@ body{
 }
 #searchRadius{
 	width: 90px;
+}
+#errorDiv{
+	color: red;
 }

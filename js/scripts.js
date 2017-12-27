@@ -42,18 +42,23 @@ function getGeoLocation() {
 }
 
 function showError(error) {
+  var errorDiv = document.getElementById("errorDiv");
   switch(error.code) {
     case error.PERMISSION_DENIED:
     console.log("User denied the request for Geolocation.");
+    errorDiv.innerHTML = "User denied the request for Geolocation.";
     break;
     case error.POSITION_UNAVAILABLE:
     console.log("Location information is unavailable.");
+    errorDiv.innerHTML = "Location information is unavailable.";
     break;
     case error.TIMEOUT:
     console.log("The request to get user location timed out.");
+    errorDiv.innerHTML = "The request to get user location timed out.";
     break;
     case error.UNKNOWN_ERROR:
     console.log("An unknown error occurred.");
+    errorDiv.innerHTML = "An unknown error occurred.";
     break;
   }
 }
