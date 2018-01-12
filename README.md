@@ -35,5 +35,6 @@ var mapsKey = {
 
 1. Add more information on infoWindow for places.
 2. Add more filters like opening timing for the restaurant and other.
-3. Improve UI
+3. Add feature on click of filter display the places.
+4. Improve UI
 
