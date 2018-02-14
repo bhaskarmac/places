@@ -1,13 +1,11 @@
 console.log('scripts loaded');
-console.log('mapsKey=>', mapsKey);
-console.log('placeTypes=>', placeTypes);
 
 //loading and adding the Google maps js to DOM
 var mapJSRef = document.createElement('script');
 mapJSRef.setAttribute("type", "text/javascript");
 mapJSRef.setAttribute('src', 'https://maps.googleapis.com/maps/api/js?key='+ mapsKey.key +'&libraries=places');
 mapJSRef.onload = function () {
-	console.log('mapJSRef loaded');
+	console.log('Google maps js loaded');
   getGeoLocation();
   loadPlaceTypes();
 };
@@ -30,7 +28,6 @@ function loadPlaceTypes() {
 
 function getSelectedPlace() {
   var selectedValue = document.getElementById("cmbPlaceType").value;
-  console.log('selectedValue=>', selectedValue);
   searchPlaces(selectedValue);
 }
 
@@ -38,7 +35,7 @@ function getGeoLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(setLocationByGeo, showError);
   } else {
-    console.log('Something went wrong!');
+    console.log('Oops! Something went wrong!');
   }
 }
 
@@ -149,7 +146,8 @@ function addMarker(place) {
   markers.push(marker);
 
   google.maps.event.addListener(marker, 'click', function() {
-    infowindow.setContent(place.name);
+    var infoWindowContent = "Name: " + place.name;
+    infowindow.setContent(infoWindowContent);
     infowindow.open(map, this);
   });
 }
