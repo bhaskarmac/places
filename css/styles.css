@@ -1,25 +1,35 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
-body{
+body {
 	margin: 50px 100px;
 	font-family: Roboto;
 	text-align: center;
 }
-#map{
+
+#map {
 	height: 650px;
 	width: 650px;
 	margin: 0 auto;
 }
-.commonControlStyle{
+
+.commonControlStyle {
 	font-family: Roboto;
 	font-size: 15px;
 	padding: 5px;
 }
-#cmbPlaceType{
+
+#cmbPlaceType {
 	margin-bottom: 20px;
 }
-#searchRadius{
+
+#searchRadius {
 	width: 90px;
 }
-#errorDiv{
+
+#errorDiv {
 	color: red;
+}
+
+.infoWindowStyle {
+	width: 175px;
+	line-height: 16px;
 }

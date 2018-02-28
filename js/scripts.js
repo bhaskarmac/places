@@ -126,7 +126,7 @@ function cbResults(results, status) {
     clearMarkers();
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       for (var i = 0; i < results.length; i++) {
-        console.log('results[i].name=>', results[i].name);
+        console.log('results[i]=>', results[i]);
         addMarker(results[i]);
       }
     }
@@ -136,6 +136,7 @@ function cbResults(results, status) {
 }
 
 function addMarker(place) {
+  console.log('place=>', place);
   var placeLoc = place.geometry.location;
   var marker = new google.maps.Marker({
     animation: google.maps.Animation.DROP,
@@ -146,7 +147,11 @@ function addMarker(place) {
   markers.push(marker);
 
   google.maps.event.addListener(marker, 'click', function() {
-    var infoWindowContent = "Name: " + place.name;
+    var infoWindowContent = "<div class='infoWindowStyle'><b>" + place.name + "</b><br>";
+    infoWindowContent += place.vicinity + "<br>";
+    infoWindowContent += "<a href=''>View on Maps</a><br>";
+    infoWindowContent += "</div>";
+    // var infoWindowContent = "Name: " + place.name;
     infowindow.setContent(infoWindowContent);
     infowindow.open(map, this);
   });
